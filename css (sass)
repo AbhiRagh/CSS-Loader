@@ -1,0 +1,98 @@
+/* SASS Mixin for Flame Animation */
+
+@mixin keyframes($animation-name)
+  @-webkit-keyframes #{$animation-name}
+    @content
+
+@mixin animation($str)   
+  -webkit-animation: #{$str} 
+
+@include keyframes(flame-scale)
+  0%
+    transform: translate(-50%, -90%)       rotate(134deg) scale(1)
+  50%
+    transform: translate(-45%, -120%) rotate(134deg) scale(1.1)
+  100%
+    transform: translate(-50%, -90%) rotate(134deg) scale(1)
+
+@include keyframes(flame-yellow)
+  0%
+    transform: translate(-50%, -90%) rotate(134deg) scale(1)
+  50%
+    transform: translate(-45%, -110%) rotate(134deg) scale(1.2)
+  100%
+    transform: translate(-50%, -90%) rotate(134deg) scale(1)
+
+@include keyframes(flame-red)
+  0%
+    transform: translate(-40%, -90%) rotate(134deg) scale(1)
+  100%
+    transform: translate(-55%, -220%) rotate(134deg) scale(0)  
+
+/* Default variables */
+$bgcolor: #111217
+$woodcolor: rgb(112,57,47)
+$flameone: #CD8408
+$flametwo: #FFDC01
+$flamethree: #f73B01
+
+=common-wood-property
+  width: 15em
+  height: 2em
+  background: $woodcolor
+  border-radius: .3em
+
+=common-flame-property
+  border-radius: .3em
+  position: absolute
+  transform: translate(-50%, -90%) rotate(134deg)
+
+/* Element Properties */  
+body
+  background: $bgcolor
+
+#night-fire
+  position: relative
+
+#nightfirewood
+  +common-wood-property
+  margin: 45% auto 0
+  position: relative
+  -webkit-transform: rotate(15deg)
+  z-index: 99
+  &:after
+    content: ''
+    position: absolute
+    +common-wood-property
+    top: 0
+    left: 0
+    -webkit-transform: rotate(-30deg)
+
+.flameone
+  +common-flame-property
+  left: 50%
+  top: -100%
+  width: 8em
+  height: 8em
+  background: $flameone
+  @include animation('flame-scale 1s infinite')
+
+.flametwo
+  +common-flame-property
+  left: 50%
+  top: -400%
+  width: 5em
+  height: 5em
+  background: $flamethree 
+  z-index: -1
+  @include animation('flame-red 1s infinite')  
+  
+.flamethree
+  +common-flame-property
+  left: 50%
+  top: -30%
+  width: 5em
+  height: 5em
+  background: $flametwo 
+  z-index: 2 
+  @include animation('flame-yellow 1s infinite')    
